@@ -1,0 +1,41 @@
+{
+	"name": "NotebookTemplate",
+	"properties": {
+		"activities": [
+			{
+				"name": "Notebook1",
+				"type": "DatabricksNotebook",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"notebookPath": "/Users/v-ksanodiya@microsoft.com/Untitled Notebook 2024-07-22 22:56:48",
+					"baseParameters": {
+						"input": {
+							"value": "@pipeline().parameters.name",
+							"type": "Expression"
+						}
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureDatabricks1",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"parameters": {
+			"name": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-07-26T22:14:41Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

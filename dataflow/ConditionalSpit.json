@@ -1,0 +1,74 @@
+{
+	"name": "ConditionalSpit",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Empdata",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText9",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "split1"
+				},
+				{
+					"name": "derivedColumn1"
+				},
+				{
+					"name": "derivedColumn2"
+				},
+				{
+					"name": "derivedColumn3"
+				},
+				{
+					"name": "union1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Dept as string,",
+				"          {Emp Name} as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     partitionBy('hash', 1)) ~> source1",
+				"source1 split(equals(Dept, '1'),",
+				"     equals(Dept, '2'),",
+				"     equals(Dept, '3'),",
+				"     disjoint: false,",
+				"     partitionBy('hash', 1)) ~> split1@(CSSTeam, HRTeam, TestingTeam, Others)",
+				"split1@HRTeam derive(Dept = iif(equals(Dept,'2'), '002', 'Invalid'),",
+				"          {Emp Name} = upper({Emp Name}),",
+				"     partitionBy('hash', 1)) ~> derivedColumn1",
+				"split1@TestingTeam derive(Dept = iif( equals(Dept, '3'),'003', 'Invalid'),",
+				"          {Emp Name} = upper({Emp Name}),",
+				"     partitionBy('hash', 1)) ~> derivedColumn2",
+				"split1@CSSTeam derive(Dept = iif(equals(Dept, '1'), '001', 'Invalid'),",
+				"          {Emp Name} = upper({Emp Name}),",
+				"     partitionBy('hash', 1)) ~> derivedColumn3",
+				"derivedColumn3, derivedColumn1, derivedColumn2 union(byName: true)~> union1",
+				"union1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['splitANDderiveANDunion'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

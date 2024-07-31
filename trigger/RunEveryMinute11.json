@@ -1,0 +1,25 @@
+{
+	"name": "RunEveryMinute11",
+	"properties": {
+		"annotations": [],
+		"runtimeState": "Stopped",
+		"pipelines": [
+			{
+				"pipelineReference": {
+					"referenceName": "CopyPipeline",
+					"type": "PipelineReference"
+				}
+			}
+		],
+		"type": "ScheduleTrigger",
+		"typeProperties": {
+			"recurrence": {
+				"frequency": "Minute",
+				"interval": 1,
+				"startTime": "2024-07-18T18:03:00",
+				"endTime": "2024-07-19T18:10:00",
+				"timeZone": "India Standard Time"
+			}
+		}
+	}
+}

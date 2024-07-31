@@ -1,0 +1,15 @@
+{
+	"name": "my21",
+	"location": "eastasia",
+	"identity": {
+		"type": "SystemAssigned,UserAssigned",
+		"principalId": "24e9a174-3945-417c-9849-b7f7e234cd12",
+		"tenantId": "16b3c013-d300-468d-ac64-7eda0820b6d3",
+		"userAssignedIdentities": {
+			"/subscriptions/ce6654d2-249d-46cc-afec-263165a673d5/resourcegroups/testing/providers/Microsoft.ManagedIdentity/userAssignedIdentities/userMI": {
+				"clientId": "b9e97d9e-a092-4fb5-a92c-7feb92404eaf",
+				"principalId": "219d631f-3e8d-4923-9573-cbcfc379b7f2"
+			}
+		}
+	}
+}

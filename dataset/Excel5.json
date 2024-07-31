@@ -1,0 +1,35 @@
+{
+	"name": "Excel5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage20",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "Emp.xlsx",
+				"folderPath": "input",
+				"container": "transformcontainer"
+			}
+		},
+		"schema": [
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			},
+			{
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

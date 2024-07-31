@@ -1,0 +1,64 @@
+{
+	"name": "FlattenDataFlow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Json1",
+						"type": "DatasetReference"
+					},
+					"name": "Jsonfile"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Json2",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "flatten1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          ID as string,",
+				"          Name as string,",
+				"          Skills as string[],",
+				"          Contact as (Phone as string, Email as string)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'arrayOfDocuments') ~> Jsonfile",
+				"Jsonfile foldDown(unroll(Skills),",
+				"     mapColumn(",
+				"          ID,",
+				"          Name,",
+				"          Skills,",
+				"          Contact",
+				"     ),",
+				"     skipDuplicateMapInputs: false,",
+				"     skipDuplicateMapOutputs: false) ~> flatten1",
+				"flatten1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['FlattenOutput.csv'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          ID,",
+				"          Name,",
+				"          Skills,",
+				"          Contact",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

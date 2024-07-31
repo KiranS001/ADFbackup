@@ -1,0 +1,146 @@
+{
+	"name": "SQLDBParameter",
+	"properties": {
+		"activities": [
+			{
+				"name": "Copy data1",
+				"type": "Copy",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"source": {
+						"type": "AzureSqlSource",
+						"queryTimeout": "02:00:00",
+						"partitionOption": "None"
+					},
+					"sink": {
+						"type": "AzureSqlSink",
+						"writeBehavior": "insert",
+						"sqlWriterUseTableLock": false
+					},
+					"enableStaging": false,
+					"translator": {
+						"type": "TabularTranslator",
+						"mappings": [
+							{
+								"source": {
+									"name": "CatID",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "CatID",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							},
+							{
+								"source": {
+									"name": "CatName",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "CatName",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Breed",
+									"type": "String",
+									"physicalType": "varchar"
+								},
+								"sink": {
+									"name": "Breed",
+									"type": "String",
+									"physicalType": "varchar"
+								}
+							},
+							{
+								"source": {
+									"name": "Age",
+									"type": "Int32",
+									"physicalType": "int"
+								},
+								"sink": {
+									"name": "Age",
+									"type": "Int32",
+									"physicalType": "int"
+								}
+							}
+						],
+						"typeConversion": true,
+						"typeConversionSettings": {
+							"allowDataTruncation": true,
+							"treatBooleanAsNumber": false
+						}
+					}
+				},
+				"inputs": [
+					{
+						"referenceName": "SQLDatabase",
+						"type": "DatasetReference",
+						"parameters": {
+							"table1": {
+								"value": "@pipeline().parameters.tablevalue",
+								"type": "Expression"
+							},
+							"dbname1": {
+								"value": "@pipeline().parameters.dbname00",
+								"type": "Expression"
+							}
+						}
+					}
+				],
+				"outputs": [
+					{
+						"referenceName": "SQLDatabase",
+						"type": "DatasetReference",
+						"parameters": {
+							"table1": {
+								"value": "@pipeline().parameters.tablevalue1",
+								"type": "Expression"
+							},
+							"dbname1": {
+								"value": "@pipeline().parameters.dbname00",
+								"type": "Expression"
+							}
+						}
+					}
+				]
+			}
+		],
+		"parameters": {
+			"dbname00": {
+				"type": "string"
+			},
+			"tablevalue": {
+				"type": "String"
+			},
+			"tablevalue1": {
+				"type": "String"
+			},
+			"GetTime": {
+				"type": "string"
+			}
+		},
+		"variables": {
+			"TriggerTime": {
+				"type": "String",
+				"defaultValue": "@pipeline().parameters.GetTime"
+			}
+		},
+		"annotations": [],
+		"lastPublishTime": "2024-07-22T13:23:19Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

@@ -1,0 +1,45 @@
+{
+	"name": "DelimitedText13",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage20",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "output",
+				"container": "transformcontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "{\"ID\":\"1\"",
+				"type": "String"
+			},
+			{
+				"name": "\"Name\":\"Roni\"",
+				"type": "String"
+			},
+			{
+				"name": "\"Skills\":\".Net\"",
+				"type": "String"
+			},
+			{
+				"name": "\"Contact\":{\"Phone\":\"+91-9443653277\"",
+				"type": "String"
+			},
+			{
+				"name": "\"Email\":\"roni@gmail.com\"}}",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

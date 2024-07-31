@@ -1,0 +1,48 @@
+{
+	"name": "Json1",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "Jsonfile",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "input_jsonfile.json",
+				"folderPath": "input",
+				"container": "transformcontainer"
+			}
+		},
+		"schema": {
+			"type": "object",
+			"properties": {
+				"ID": {
+					"type": "string"
+				},
+				"Name": {
+					"type": "string"
+				},
+				"Skills": {
+					"type": "array",
+					"items": {
+						"type": "string"
+					}
+				},
+				"Contact": {
+					"type": "object",
+					"properties": {
+						"Phone": {
+							"type": "string"
+						},
+						"Email": {
+							"type": "string"
+						}
+					}
+				}
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

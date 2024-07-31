@@ -1,0 +1,59 @@
+{
+	"name": "Stringify",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Json4",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Json5",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "stringify1"
+				},
+				{
+					"name": "derivedColumn1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          name as string,",
+				"          skills as string[],",
+				"          contact as (mobile as string, landline as string)",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false,",
+				"     documentForm: 'documentPerLine') ~> source1",
+				"source1 stringify(Stringify = contact ? string,",
+				"     partitionBy('hash', 1),",
+				"     format: 'json') ~> stringify1",
+				"stringify1 derive(Stringify = toString(Stringify)) ~> derivedColumn1",
+				"derivedColumn1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['Stringify'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          name,",
+				"          Stringify",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

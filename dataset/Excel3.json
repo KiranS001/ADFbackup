@@ -1,0 +1,20 @@
+{
+	"name": "Excel3",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage12",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"container": "adftutorial"
+			}
+		},
+		"schema": []
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

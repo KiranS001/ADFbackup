@@ -1,0 +1,20 @@
+{
+	"name": "Json5",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage20",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Json",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": "output",
+				"container": "transformcontainer"
+			}
+		},
+		"schema": {}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

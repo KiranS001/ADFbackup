@@ -1,0 +1,35 @@
+{
+	"name": "HDInsight-Failed",
+	"properties": {
+		"activities": [
+			{
+				"name": "Spark1",
+				"type": "HDInsightSpark",
+				"dependsOn": [],
+				"policy": {
+					"timeout": "0.12:00:00",
+					"retry": 0,
+					"retryIntervalInSeconds": 30,
+					"secureOutput": false,
+					"secureInput": false
+				},
+				"userProperties": [],
+				"typeProperties": {
+					"rootPath": "adftutorial/Spark/Script",
+					"entryFilePath": "WordCount_Spark.py",
+					"sparkJobLinkedService": {
+						"referenceName": "AzureBlobStorage15",
+						"type": "LinkedServiceReference"
+					}
+				},
+				"linkedServiceName": {
+					"referenceName": "AzureHDInsightLinkedService",
+					"type": "LinkedServiceReference"
+				}
+			}
+		],
+		"annotations": [],
+		"lastPublishTime": "2024-07-23T17:52:51Z"
+	},
+	"type": "Microsoft.DataFactory/factories/pipelines"
+}

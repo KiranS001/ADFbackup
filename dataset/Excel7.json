@@ -1,0 +1,36 @@
+{
+	"name": "Excel7",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage20",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "newEMP.xlsx",
+				"folderPath": "input",
+				"container": "transformcontainer"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Dept",
+				"type": "String"
+			},
+			{
+				"name": "EmpId",
+				"type": "String"
+			},
+			{
+				"name": "Gender",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

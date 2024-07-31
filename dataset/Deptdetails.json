@@ -1,0 +1,32 @@
+{
+	"name": "Deptdetails",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage20",
+			"type": "LinkedServiceReference"
+		},
+		"annotations": [],
+		"type": "Excel",
+		"typeProperties": {
+			"sheetName": "Sheet1",
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"fileName": "deptnew.xlsx",
+				"folderPath": "input",
+				"container": "transformcontainer"
+			},
+			"firstRowAsHeader": true
+		},
+		"schema": [
+			{
+				"name": "Dept",
+				"type": "String"
+			},
+			{
+				"name": "Dept Name",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

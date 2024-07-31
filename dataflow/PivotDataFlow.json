@@ -1,0 +1,50 @@
+{
+	"name": "PivotDataFlow",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Excel7",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "DelimitedText12",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "pivot1"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          Dept as string,",
+				"          EmpId as string,",
+				"          Gender as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 pivot(groupBy(Dept),",
+				"     pivotBy(Gender),",
+				"     {} = count(EmpId),",
+				"     columnNaming: 'Total_$N$VEmp',",
+				"     lateral: true) ~> pivot1",
+				"pivot1 sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true) ~> sink1"
+			]
+		}
+	}
+}

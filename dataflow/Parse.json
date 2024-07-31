@@ -1,0 +1,68 @@
+{
+	"name": "Parse",
+	"properties": {
+		"type": "MappingDataFlow",
+		"typeProperties": {
+			"sources": [
+				{
+					"dataset": {
+						"referenceName": "Excel8",
+						"type": "DatasetReference"
+					},
+					"name": "source1"
+				}
+			],
+			"sinks": [
+				{
+					"dataset": {
+						"referenceName": "Json3",
+						"type": "DatasetReference"
+					},
+					"name": "sink1"
+				}
+			],
+			"transformations": [
+				{
+					"name": "ParseAddress"
+				},
+				{
+					"name": "ParseSkill"
+				}
+			],
+			"scriptLines": [
+				"source(output(",
+				"          {empId } as string,",
+				"          {empName } as string,",
+				"          Skills as string,",
+				"          address as string",
+				"     ),",
+				"     allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     ignoreNoFilesFound: false) ~> source1",
+				"source1 parse(ParseAdd = address ? (city as string,",
+				"          country as string),",
+				"     format: 'json',",
+				"     documentForm: 'singleDocument') ~> ParseAddress",
+				"ParseAddress parse(ParseSkills = Skills ? (Skill1 as string,",
+				"          Skill2 as string,",
+				"          Skill3 as string),",
+				"     format: 'delimited',",
+				"     columnNamesAsHeader: false,",
+				"     columnDelimiter: '|',",
+				"     nullValue: '') ~> ParseSkill",
+				"ParseSkill sink(allowSchemaDrift: true,",
+				"     validateSchema: false,",
+				"     partitionFileNames:['parseOUT'],",
+				"     skipDuplicateMapInputs: true,",
+				"     skipDuplicateMapOutputs: true,",
+				"     mapColumn(",
+				"          {empId },",
+				"          {empName },",
+				"          ParseSkills,",
+				"          ParseAdd",
+				"     ),",
+				"     partitionBy('hash', 1)) ~> sink1"
+			]
+		}
+	}
+}

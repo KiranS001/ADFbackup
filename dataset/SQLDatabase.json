@@ -1,0 +1,34 @@
+{
+	"name": "SQLDatabase",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "NEWSqlDatabase",
+			"type": "LinkedServiceReference",
+			"parameters": {
+				"dbname": {
+					"value": "@dataset().dbname1",
+					"type": "Expression"
+				}
+			}
+		},
+		"parameters": {
+			"table1": {
+				"type": "String"
+			},
+			"dbname1": {
+				"type": "String"
+			}
+		},
+		"annotations": [],
+		"type": "AzureSqlTable",
+		"schema": [],
+		"typeProperties": {
+			"schema": "dbo",
+			"table": {
+				"value": "@dataset().table1",
+				"type": "Expression"
+			}
+		}
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}

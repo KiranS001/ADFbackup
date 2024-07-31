@@ -1,0 +1,53 @@
+{
+	"name": "DelimitedText15",
+	"properties": {
+		"linkedServiceName": {
+			"referenceName": "AzureBlobStorage25",
+			"type": "LinkedServiceReference"
+		},
+		"parameters": {
+			"subfolder": {
+				"type": "string"
+			}
+		},
+		"annotations": [],
+		"type": "DelimitedText",
+		"typeProperties": {
+			"location": {
+				"type": "AzureBlobStorageLocation",
+				"folderPath": {
+					"value": "@dataset().subfolder",
+					"type": "Expression"
+				},
+				"container": "transformcontainer"
+			},
+			"columnDelimiter": ",",
+			"escapeChar": "\\",
+			"firstRowAsHeader": true,
+			"quoteChar": "\""
+		},
+		"schema": [
+			{
+				"name": "{\"ID\":\"1\"",
+				"type": "String"
+			},
+			{
+				"name": "\"Name\":\"Roni\"",
+				"type": "String"
+			},
+			{
+				"name": "\"Skills\":\".Net\"",
+				"type": "String"
+			},
+			{
+				"name": "\"Contact\":{\"Phone\":\"+91-9443653277\"",
+				"type": "String"
+			},
+			{
+				"name": "\"Email\":\"roni@gmail.com\"}}",
+				"type": "String"
+			}
+		]
+	},
+	"type": "Microsoft.DataFactory/factories/datasets"
+}
